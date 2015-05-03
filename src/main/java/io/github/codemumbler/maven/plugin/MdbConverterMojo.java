@@ -45,8 +45,8 @@ public class MdbConverterMojo
 		try {
 			MDBReader reader = new MDBReader(accessFile);
 			database = reader.loadDatabase();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new MojoExecutionException("Failed to locate MDB file.", e);
 		}
 		try {
 			OracleScriptWriter writer = new OracleScriptWriter(database);
