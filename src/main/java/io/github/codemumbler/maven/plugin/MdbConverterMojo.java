@@ -21,9 +21,11 @@ import io.github.codemumbler.MDBReader;
 import io.github.codemumbler.OracleScriptWriter;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,7 +43,7 @@ public class MdbConverterMojo
 	private File accessFile;
 
 	public void execute() throws MojoExecutionException {
-		Database database = null;
+		Database database;
 		try {
 			MDBReader reader = new MDBReader(accessFile);
 			database = reader.loadDatabase();
@@ -54,8 +56,8 @@ public class MdbConverterMojo
 			printWriter.println(writer.writeScript());
 			printWriter.flush();
 			printWriter.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new MojoExecutionException("Failed to write output to file.", e);
 		}
 	}
 }

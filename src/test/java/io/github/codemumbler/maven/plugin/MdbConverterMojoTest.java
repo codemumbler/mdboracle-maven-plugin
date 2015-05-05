@@ -37,6 +37,11 @@ public class MdbConverterMojoTest {
 		executeMojo("src/test/resources/bad-mdb-file-pom.xml");
 	}
 
+	@Test( expected = MojoExecutionException.class )
+	public void noOutputFile() throws Exception {
+		executeMojo("src/test/resources/bad-output-file-pom.xml");
+	}
+
 	private void executeMojo(String pomFile) throws Exception {
 		File pom = new File(pomFile);
 		mojo = (MdbConverterMojo) rule.lookupMojo("mdboracle", pom);
