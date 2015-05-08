@@ -30,24 +30,28 @@ public class MdbConverterMojoTest {
 	public void fullScript() throws Exception {
 		new File("target/test-classes/full-conversion/target/test-classes").mkdirs();
 		executeMojo("target/test-classes/full-conversion");
-		Assert.assertEquals(IOUtil.toString(new FileInputStream("target/test-classes/full-conversion/expected.sql")),
-				IOUtil.toString(new FileInputStream("target/test-classes/full-conversion/target/test-classes/sql.sql")));
+		Assert.assertEquals(loadFileAsString("target/test-classes/full-conversion/expected.sql"),
+				loadFileAsString("target/test-classes/full-conversion/target/test-classes/sql.sql"));
 	}
 
 	@Test
 	public void ddlScript() throws Exception {
 		new File("target/test-classes/ddl-conversion/target/test-classes").mkdirs();
 		executeMojo("target/test-classes/ddl-conversion");
-		Assert.assertEquals(IOUtil.toString(new FileInputStream("target/test-classes/ddl-conversion/expected.sql")).trim(),
-				IOUtil.toString(new FileInputStream("target/test-classes/ddl-conversion/target/test-classes/sql.sql")).trim());
+		Assert.assertEquals(loadFileAsString("target/test-classes/ddl-conversion/expected.sql"),
+				loadFileAsString("target/test-classes/ddl-conversion/target/test-classes/sql.sql"));
 	}
 
 	@Test
 	public void onlyInsertions() throws Exception {
 		new File("target/test-classes/data-conversion/target/test-classes").mkdirs();
 		executeMojo("target/test-classes/data-conversion");
-		Assert.assertEquals(IOUtil.toString(new FileInputStream("target/test-classes/data-conversion/expected.sql")).trim(),
-				IOUtil.toString(new FileInputStream("target/test-classes/data-conversion/target/test-classes/sql.sql")).trim());
+		Assert.assertEquals(loadFileAsString("target/test-classes/data-conversion/expected.sql"),
+				loadFileAsString("target/test-classes/data-conversion/target/test-classes/sql.sql"));
+	}
+
+	private String loadFileAsString(String fileName) throws Exception {
+		return IOUtil.toString(new FileInputStream(fileName)).replaceAll("\r", "").trim();
 	}
 
 	@Test( expected = MojoExecutionException.class )
