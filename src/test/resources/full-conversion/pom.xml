@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>io.github.codemumbler</groupId>
+	<artifactId>test-app</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>test project</name>
+	<url>http://maven.apache.org</url>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>io.github.codemumbler.maven.plugin</groupId>
+				<artifactId>mdbconverter</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>full-conversion</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<accessFile>src/test/resources/simple.accdb</accessFile>
+					<outputFile>target/test-classes/sql.sql</outputFile>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

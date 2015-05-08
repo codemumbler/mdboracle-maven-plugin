@@ -36,9 +36,9 @@ public class MdbConverterMojoTest {
 
 	@Test
 	public void outputFile() throws Exception {
-		Assume.assumeTrue(new File("target/test-classes/full-conversion/target/test-classes").mkdirs());
+		new File("target/test-classes/full-conversion/target/test-classes").mkdirs();
 		executeMojo("target/test-classes/full-conversion");
-		Assert.assertEquals(IOUtil.toString(new FileInputStream("target/test-classes/expected.sql")),
+		Assert.assertEquals(IOUtil.toString(new FileInputStream("target/test-classes/full-conversion/expected.sql")),
 				IOUtil.toString(new FileInputStream("target/test-classes/full-conversion/target/test-classes/sql.sql")));
 	}
 
