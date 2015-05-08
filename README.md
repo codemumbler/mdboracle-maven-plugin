@@ -3,7 +3,7 @@ Maven plugin for converting MS Access to Oracle SQL scripts
 
 Sample usage:
 ```
-<build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>io.github.codemumbler.maven.plugin</groupId>
