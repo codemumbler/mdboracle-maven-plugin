@@ -13,11 +13,11 @@
 			<plugin>
 				<groupId>io.github.codemumbler.maven.plugin</groupId>
 				<artifactId>mdbconverter</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>@project.version@</version>
 				<executions>
 					<execution>
 						<goals>
-							<goal>full-conversion</goal>
+							<goal>write-script</goal>
 						</goals>
 						<phase>generate-resources</phase>
 					</execution>

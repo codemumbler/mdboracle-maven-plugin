@@ -24,6 +24,7 @@
 				</executions>
 				<configuration>
 					<accessFile>src/test/resources/simple.accdb</accessFile>
+					<writeDML>false</writeDML>
 					<outputFile>target/test-classes/sql.sql</outputFile>
 				</configuration>
 			</plugin>

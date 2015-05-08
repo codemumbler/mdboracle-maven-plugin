@@ -12,7 +12,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import java.io.File;
 import java.io.PrintWriter;
 
-@Mojo(name = "full-conversion", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
+@Mojo(name = "write-script", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class MdbConverterMojo
 		extends AbstractMojo {
 
@@ -21,6 +21,12 @@ public class MdbConverterMojo
 
 	@Parameter(required = true)
 	private File accessFile;
+
+	@Parameter(defaultValue = "true")
+	private boolean writeDDL;
+
+	@Parameter(defaultValue = "true")
+	private boolean writeDML;
 
 	public void execute() throws MojoExecutionException {
 		Database database;
@@ -33,7 +39,12 @@ public class MdbConverterMojo
 		try {
 			OracleScriptWriter writer = new OracleScriptWriter(database);
 			PrintWriter printWriter = new PrintWriter(outputFile);
-			printWriter.println(writer.writeScript());
+			if ( writeDDL && writeDML )
+				printWriter.println(writer.writeScript());
+			else if ( writeDML )
+				printWriter.println(writer.writeDatabaseInsertions());
+			else if ( writeDDL )
+				printWriter.println(writer.writeDDLScript());
 			printWriter.flush();
 			printWriter.close();
 		} catch (Exception e) {

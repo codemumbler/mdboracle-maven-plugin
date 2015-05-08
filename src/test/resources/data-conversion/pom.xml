@@ -17,13 +17,14 @@
 				<executions>
 					<execution>
 						<goals>
-							<goal>data-conversion</goal>
+							<goal>write-script</goal>
 						</goals>
 						<phase>generate-resources</phase>
 					</execution>
 				</executions>
 				<configuration>
 					<accessFile>src/test/resources/simple.accdb</accessFile>
+					<writeDDL>false</writeDDL>
 					<outputFile>target/test-classes/sql.sql</outputFile>
 				</configuration>
 			</plugin>
