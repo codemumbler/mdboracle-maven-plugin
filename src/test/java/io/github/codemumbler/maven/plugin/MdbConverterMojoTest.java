@@ -46,16 +46,7 @@ public class MdbConverterMojoTest {
 	public void onlyInsertions() throws Exception {
 		new File("target/test-classes/data-conversion/target/test-classes").mkdirs();
 		executeMojo("target/test-classes/data-conversion");
-		Assert.assertEquals("INSERT INTO SIMPLE_TABLE(ID, LABEL, DESCRIPTION) VALUES (1, 'label1', 'description1');\n" +
-						"INSERT INTO SIMPLE_VALUE_TABLE(ID, DATE_TIME, CURRENCY, YES_NO, LABEL_LOOKUP, NUMBER, PRECISION_NUMBER, FOREIGN_KEY, TEXT_LOOKUP) VALUES (1, TO_TIMESTAMP('04/01/2015 00:00:00', 'MM/DD/YYYY HH24:MI:SS'), 3.5000, 'Y', 1, 2, 1.1, 1, 'text1');\n" +
-						"DECLARE\n" +
-						"str varchar2(32767);\n" +
-						"BEGIN\n" +
-						"\tstr := 'test memo';\n" +
-						"UPDATE SIMPLE_VALUE_TABLE SET MEMO = str WHERE ID = 1;\n" +
-						"END;\n" +
-						"/\n" +
-						"INSERT INTO TEXT_KEY_TABLE(TEXT_KEY) VALUES ('text1');",
+		Assert.assertEquals(IOUtil.toString(new FileInputStream("target/test-classes/data-conversion/expected.sql")).trim(),
 				IOUtil.toString(new FileInputStream("target/test-classes/data-conversion/target/test-classes/sql.sql")).trim());
 	}
 
