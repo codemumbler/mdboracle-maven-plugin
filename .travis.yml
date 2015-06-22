@@ -1,1 +1,14 @@
 language: java
+sudo: required
+
+env:
+  global:
+    - ORACLE_FILE=oracle-xe-11.2.0-1.0.x86_64.rpm.zip
+    - ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+    - ORACLE_SID=XE
+
+before_install:
+  - chmod a+x .travis/oracle/*.sh
+  - .travis/oracle/download.sh
+  - .travis/oracle/install.sh
+  - echo exit | sqlplus / as sysdba @.travis/oracle/createschema.sql
