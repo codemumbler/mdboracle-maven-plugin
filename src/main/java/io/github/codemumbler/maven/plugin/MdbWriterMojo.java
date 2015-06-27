@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.PrintWriter;
 
 @Mojo(name = "write-script", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
-public class MdbConverterMojo
+public class MdbWriterMojo
 		extends AbstractMojo {
 
 	@Parameter(defaultValue = "${project.basedir}/src/main/resources/db/migration/V1_1__transfer_from_mdb.sql")

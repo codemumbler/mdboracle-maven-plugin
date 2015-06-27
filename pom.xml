@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>io.github.codemumbler</groupId>
 			<artifactId>mdb-oracle-converter</artifactId>
-			<version>1.0</version>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
 
 		<!-- dependencies to annotations -->
@@ -90,6 +90,12 @@
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-compat</artifactId>
 			<version>3.3.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

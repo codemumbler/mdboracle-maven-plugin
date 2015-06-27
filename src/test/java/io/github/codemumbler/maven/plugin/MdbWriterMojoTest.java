@@ -12,7 +12,7 @@ import java.io.FileInputStream;
 
 public class MdbWriterMojoTest {
 
-	public static final String GOAL = "write-script";
+	private static final String GOAL = "write-script";
 	private MdbWriterMojo mojo;
 
 	@Rule
