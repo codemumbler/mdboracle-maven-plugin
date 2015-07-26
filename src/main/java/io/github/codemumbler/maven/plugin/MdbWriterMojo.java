@@ -16,15 +16,19 @@ import java.io.PrintWriter;
 public class MdbWriterMojo
 		extends AbstractMojo {
 
+	@SuppressWarnings("unused")
 	@Parameter(defaultValue = "${project.basedir}/src/main/resources/db/migration/V1_1__transfer_from_mdb.sql")
 	private File outputFile;
 
+	@SuppressWarnings("unused")
 	@Parameter(required = true)
 	private File accessFile;
 
+	@SuppressWarnings("unused")
 	@Parameter(defaultValue = "true")
 	private boolean writeDDL;
 
+	@SuppressWarnings("unused")
 	@Parameter(defaultValue = "true")
 	private boolean writeDML;
 
