@@ -17,17 +17,29 @@ import java.io.PrintWriter;
 public class MdbRunnerMojo
 		extends AbstractMojo {
 
+	@SuppressWarnings("unused")
 	@Parameter(required = true)
 	private String jdbcURL;
 
+	@SuppressWarnings("unused")
 	@Parameter(required = true)
 	private String username;
 
+	@SuppressWarnings("unused")
 	@Parameter(required = true)
 	private String password;
 
+	@SuppressWarnings("unused")
 	@Parameter(required = true)
 	private File accessFile;
+
+	@SuppressWarnings("unused")
+	@Parameter(defaultValue = "true")
+	private boolean writeDDL;
+
+	@SuppressWarnings("unused")
+	@Parameter(defaultValue = "true")
+	private boolean writeDML;
 
 	public void execute() throws MojoExecutionException {
 		Database database;
@@ -39,7 +51,12 @@ public class MdbRunnerMojo
 		}
 		try {
 			ScriptRunner runner = new ScriptRunner(jdbcURL, username, password);
-			runner.executeCreation(database);
+			if ( writeDDL && writeDML )
+				runner.executeCreation(database);
+			else if ( writeDML ) {
+				OracleScriptWriter writer = new OracleScriptWriter(database);
+				runner.executeScript(writer.writeDatabaseInsertions());
+			}
 		} catch (Exception e) {
 			throw new MojoExecutionException("Failed to build database.", e);
 		}

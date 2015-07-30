@@ -41,9 +41,13 @@ public class MdbRunnerMojoTest {
 	@After
 	public void tearDown() throws Exception {
 		if ( cleanupScript != null ) {
-			ScriptRunner runner = new ScriptRunner(getDataSource());
-			runner.executeScript(loadFileAsString(cleanupScript.getAbsolutePath()));
+			runSqlFile(cleanupScript);
 		}
+	}
+
+	private void runSqlFile(File sqlScript) throws Exception {
+		ScriptRunner runner = new ScriptRunner(getDataSource());
+		runner.executeScript(loadFileAsString(sqlScript.getAbsolutePath()));
 	}
 
 	@Test
@@ -51,6 +55,15 @@ public class MdbRunnerMojoTest {
 		cleanupScript = new File("target/test-classes/build-database/cleanup.sql");
 		new File("target/test-classes/build-database/target/test-classes").mkdirs();
 		executeMojo("target/test-classes/build-database");
+		Assert.assertEquals("label1", getString());
+	}
+
+	@Test
+	public void justDML() throws Exception {
+		cleanupScript = new File("target/test-classes/build-database-dml/cleanup.sql");
+		runSqlFile(new File("target/test-classes/build-database-dml/setup.sql"));
+		new File("target/test-classes/build-database-dml/target/test-classes").mkdirs();
+		executeMojo("target/test-classes/build-database-dml");
 		Assert.assertEquals("label1", getString());
 	}
 
