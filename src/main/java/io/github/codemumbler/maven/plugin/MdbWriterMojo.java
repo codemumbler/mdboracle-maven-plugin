@@ -12,47 +12,47 @@ import org.apache.maven.plugins.annotations.Parameter;
 import java.io.File;
 import java.io.PrintWriter;
 
-@Mojo(name = "write-script", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
-public class MdbWriterMojo
-		extends AbstractMojo {
+@Mojo(name = "write-script",
+    defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
+public class MdbWriterMojo extends AbstractMojo {
 
-	@SuppressWarnings("unused")
-	@Parameter(defaultValue = "${project.basedir}/src/main/resources/db/migration/V1_1__transfer_from_mdb.sql")
-	private File outputFile;
+  @SuppressWarnings("unused")
+  @Parameter(defaultValue = "${project.basedir}/src/main/resources/db/migration/V1_1__transfer_from_mdb.sql")
+  private File outputFile;
 
-	@SuppressWarnings("unused")
-	@Parameter(required = true)
-	private File accessFile;
+  @SuppressWarnings("unused")
+  @Parameter(required = true)
+  private File accessFile;
 
-	@SuppressWarnings("unused")
-	@Parameter(defaultValue = "true")
-	private boolean writeDDL;
+  @SuppressWarnings("unused")
+  @Parameter(defaultValue = "true")
+  private boolean writeDDL;
 
-	@SuppressWarnings("unused")
-	@Parameter(defaultValue = "true")
-	private boolean writeDML;
+  @SuppressWarnings("unused")
+  @Parameter(defaultValue = "true")
+  private boolean writeDML;
 
-	public void execute() throws MojoExecutionException {
-		Database database;
-		try {
-			MDBReader reader = new MDBReader(accessFile);
-			database = reader.loadDatabase();
-		} catch (Exception e) {
-			throw new MojoExecutionException("Failed to locate MDB file.", e);
-		}
-		try {
-			OracleScriptWriter writer = new OracleScriptWriter(database);
-			PrintWriter printWriter = new PrintWriter(outputFile);
-			if ( writeDDL && writeDML )
-				printWriter.println(writer.writeScript());
-			else if ( writeDML )
-				printWriter.println(writer.writeDatabaseInsertions());
-			else if ( writeDDL )
-				printWriter.println(writer.writeDDLScript());
-			printWriter.flush();
-			printWriter.close();
-		} catch (Exception e) {
-			throw new MojoExecutionException("Failed to write output to file.", e);
-		}
-	}
+  public void execute() throws MojoExecutionException {
+    Database database;
+    try {
+      MDBReader reader = new MDBReader(accessFile);
+      database = reader.loadDatabase();
+    } catch (Exception e) {
+      throw new MojoExecutionException("Failed to locate MDB file.", e);
+    }
+    try {
+      OracleScriptWriter writer = new OracleScriptWriter(database);
+      PrintWriter printWriter = new PrintWriter(outputFile);
+      if (writeDDL && writeDML)
+        printWriter.println(writer.writeScript());
+      else if (writeDML)
+        printWriter.println(writer.writeDatabaseInsertions());
+      else if (writeDDL)
+        printWriter.println(writer.writeDDLScript());
+      printWriter.flush();
+      printWriter.close();
+    } catch (Exception e) {
+      throw new MojoExecutionException("Failed to write output to file.", e);
+    }
+  }
 }
