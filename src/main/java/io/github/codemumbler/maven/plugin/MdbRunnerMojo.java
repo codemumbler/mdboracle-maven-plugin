@@ -56,6 +56,9 @@ public class MdbRunnerMojo
 			else if ( writeDML ) {
 				OracleScriptWriter writer = new OracleScriptWriter(database);
 				runner.executeScript(writer.writeDatabaseInsertions());
+			} else if ( writeDDL ) {
+				OracleScriptWriter writer = new OracleScriptWriter(database);
+				runner.executeScript(writer.writeDDLScript());
 			}
 		} catch (Exception e) {
 			throw new MojoExecutionException("Failed to build database.", e);

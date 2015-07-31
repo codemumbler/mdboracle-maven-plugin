@@ -67,6 +67,14 @@ public class MdbRunnerMojoTest {
 		Assert.assertEquals("label1", getString());
 	}
 
+	@Test
+	public void justDDL() throws Exception {
+		cleanupScript = new File("target/test-classes/build-database-ddl/cleanup.sql");
+		new File("target/test-classes/build-database-ddl/target/test-classes").mkdirs();
+		executeMojo("target/test-classes/build-database-ddl");
+		Assert.assertEquals(null, getString());
+	}
+
 	private String getString() throws Exception {
 		try (Connection connection = dataSource.getConnection()) {
 			try (Statement statement = connection.createStatement()){
