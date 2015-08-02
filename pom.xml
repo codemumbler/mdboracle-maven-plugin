@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>io.github.codemumbler</groupId>
 			<artifactId>mdb-oracle-converter</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.1</version>
 		</dependency>
 
 		<!-- dependencies to annotations -->
